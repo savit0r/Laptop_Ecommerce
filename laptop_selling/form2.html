@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Customer Information Form</title>
+	<style>
+        form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+        }
+
+
+		label {
+			display: block;
+			margin-bottom: 5px;
+		}
+
+		input[type="text"], input[type="email"], input[type="tel"], input[type="password"] 
+        {
+           margin-bottom: 20px;
+           padding: 10px;
+           border-radius: 5px;
+           border: 1px solid #ccc;
+          width: 300px;
+          font-size: 16px;}
+
+		input[type="submit"] {
+			background-color: #4CAF50;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 16px;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #3e8e41;
+		}
+
+		.error {
+			color: red;
+			font-size: 14px;
+			margin-top: 5px;
+		}
+        .center{
+            align-items: center;
+        }
+	</style>
+</head>
+<body>
+    <div class="center">
+	<h1 style="text-align: center;">Customer Information </h1>
+	<form action="connect.jsp" method="post">
+		<label for="Name">Name</label>
+		<input type="text" id="Name" name="Name" required pattern="[A-Za-z ]+" minlength="3">
+		<div id="name-error" class="error"></div>
+
+		<label for="Mobile_No">Mobile_No</label>
+		<input type="tel" id="Mobile_No" name="Mobile_No" required pattern="[0-9]{10}">
+		<div id="mobile-error" class="error"></div>
+
+		<label for="Address">Address</label>
+		<input type="text" id="Address" name="Address" required>
+
+		<label for="Email">Email</label>
+		<input type="Email" id="Email" name="Email" required>
+		<div id="email-error" class="error"></div>
+
+		<label for="Product_id">Product_id</label>
+		<input type="text" id="Product_id" name="Product_id" >
+		
+
+		<label for="Payment_Method">Payment_Method</label>
+		<select id="Payment_Method" name="Payment_Method" required>
+			<option value="">--Please choose an option--</option>
+			<option value="creditcard">Credit Card</option>
+			<option value="debitcard">Debit Card</option>
+			<option value="paypal">PayPal</option>
+			<option value="COD">COD</option>
+		</select>
+
+		<input type="submit" value="Submit">
+	</form>
+    </div>
+
+	<script>
+		// JavaScript code to handle form submission
+		const form = document.querySelector('form');
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+
+			// Get form values
+			const name = document.querySelector('#name').value;
+			const mobile = document.querySelector('#mobile').value;
+			const address = document.querySelector('#address').value;
+			const email = document.querySelector('#email').value;
+			const payment = document.querySelector('#payment').value;
+
+			// Validate form data
+			const namePattern = /^[A-Za-z ]+$/;
+			const mobilePattern = /^[0-9]{10}$/;
+			const emailPattern = /^[^@]+@[^@]+\.[^@]+$/;
+
+			const nameError = document.querySelector('#name-error');
+			const mobileError = document.querySelector('#mobile-error');
+			const emailError = document.querySelector('#email-error');
+
+			let isValid = true;
+
+			if (!namePattern.test(name)) {
+				nameError.textContent = 'Please enter a valid name';
+				isValid
